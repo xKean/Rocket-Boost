@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    Movement movementScript;
+    [SerializeField] float changeSequenceWait = 0.6f;
+    private void Start() {
+        movementScript = GetComponent<Movement>();
+    }
     void OnCollisionEnter(Collision other) 
     {
         switch(other.gameObject.tag)
@@ -11,16 +16,29 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log(other.gameObject.tag);
                 break;
             case "Finish":
-                LoadNextLevel();
-                break;
-            case "Fuel":
-                Debug.Log("as");
+                StartFinishSequence();
                 break;
             default:
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
     }
+
+    void StartCrashSequence()
+    {
+        //todo add SFX upon crash
+        //todo add particle effect upon crash
+        movementScript.enabled = false ; 
+        Invoke("ReloadLevel", changeSequenceWait);
+    }
+    void StartFinishSequence()
+    {
+        //todo add SFX upon crash
+        //todo add particle effect upon crash
+        movementScript.enabled = false ; 
+        Invoke("LoadNextLevel", changeSequenceWait);
+    }
+
 
     void ReloadLevel()
     {
