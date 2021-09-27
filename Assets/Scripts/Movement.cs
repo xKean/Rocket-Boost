@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
     [SerializeField] float boostPower = 1000f;
     [SerializeField] float turnPower = 255f;
+    [SerializeField] AudioClip mainEngine;
+
     Rigidbody rb;
     AudioSource audioSource;
 
@@ -29,8 +30,9 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up*boostPower*Time.deltaTime);
-            if(!audioSource.isPlaying){
-                audioSource.Play();
+            if(!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(mainEngine);
             }
             
         }

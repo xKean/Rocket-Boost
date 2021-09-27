@@ -3,10 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-    Movement movementScript;
+    
     [SerializeField] float changeSequenceWait = 0.6f;
+    [SerializeField] AudioClip crashAudio;
+    [SerializeField] AudioClip finishAudio;
+    Movement movementScript;
+    AudioSource audioSource;
     private void Start() {
         movementScript = GetComponent<Movement>();
+        audioSource = GetComponent<AudioSource>();
     }
     void OnCollisionEnter(Collision other) 
     {
@@ -26,15 +31,15 @@ public class CollisionHandler : MonoBehaviour
 
     void StartCrashSequence()
     {
-        //todo add SFX upon crash
         //todo add particle effect upon crash
+        audioSource.PlayOneShot(crashAudio);
         movementScript.enabled = false ; 
         Invoke("ReloadLevel", changeSequenceWait);
     }
     void StartFinishSequence()
     {
-        //todo add SFX upon crash
         //todo add particle effect upon crash
+        audioSource.PlayOneShot(finishAudio);
         movementScript.enabled = false ; 
         Invoke("LoadNextLevel", changeSequenceWait);
     }
