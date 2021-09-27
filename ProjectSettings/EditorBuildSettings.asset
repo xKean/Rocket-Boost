@@ -11,4 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fly Under.unity
     guid: 1927174489ce5a640ad377950aa6a052
+  - enabled: 1
+    path: Assets/Scenes/Fly ZickZack1.unity
+    guid: 59651f03f4e4c01409d9cb5839077d84
+  - enabled: 1
+    path: Assets/Scenes/Fly ZickZack2.unity
+    guid: a0596b9e1b95dac44850411eb5f5f71b
+  - enabled: 1
+    path: Assets/Scenes/Fly Envoirement.unity
+    guid: 6efef5e895439674bb9d44009bba5d17
+  - enabled: 1
+    path: Assets/Scenes/Fly Envoirement 1.unity
+    guid: 7d3099ebf32d40f479857ed3e0f21896
   m_configObjects: {}

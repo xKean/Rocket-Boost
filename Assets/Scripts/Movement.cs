@@ -5,8 +5,11 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] float boostPower = 1000f;
-    [SerializeField] float turnPower = 255f;
+    [SerializeField] float turnPower = 100f;
     [SerializeField] AudioClip mainEngine;
+    [SerializeField] ParticleSystem mainBooster;
+    [SerializeField] ParticleSystem leftBooster;
+    [SerializeField] ParticleSystem rightBooster;
 
     Rigidbody rb;
     AudioSource audioSource;
@@ -29,30 +32,76 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up*boostPower*Time.deltaTime);
-            if(!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(mainEngine);
-            }
-            
+            StartBoosting();
+
         }
         else
         {
-            audioSource.Stop();
+            StopBoosting();
         }
     }
-    
+
     void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
         {
-            ApplyRotation(turnPower);
+            TurnLeft();
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            ApplyRotation(-turnPower);
+            TurnRight();
+        }
+        else
+        {
+            StopTurning();
         }
     }
+
+    private void TurnLeft()
+    {
+        ApplyRotation(turnPower);
+        if (!rightBooster.isPlaying)
+        {
+            leftBooster.Stop();
+            rightBooster.Play();
+        }
+    }
+
+    private void TurnRight()
+    {
+        if (!leftBooster.isPlaying)
+        {
+            rightBooster.Stop();
+            leftBooster.Play();
+        }
+        ApplyRotation(-turnPower);
+    }
+
+    void StartBoosting()
+    {
+        rb.AddRelativeForce(Vector3.up * boostPower * Time.deltaTime);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(mainEngine);
+        }
+        if (!mainBooster.isPlaying)
+        {
+            mainBooster.Play();
+        }
+    }
+    private void StopBoosting()
+    {
+        audioSource.Stop();
+        mainBooster.Stop();
+    }
+
+    private void StopTurning()
+    {
+        leftBooster.Stop();
+        rightBooster.Stop();
+    }
+
+
 
     public void ApplyRotation(float rotationThisFrame)
     {
