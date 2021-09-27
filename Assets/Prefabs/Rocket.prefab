@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostPower: 1000
   turnPower: 255
+  mainEngine: {fileID: 8300000, guid: 0692be332b826d14f9fa4683504b9381, type: 3}
 --- !u!82 &3914839
 AudioSource:
   m_ObjectHideFlags: 0
@@ -238,4 +239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de40c3b41436c94d81a446f6e3a25f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeSequenceWait: 0.6
+  changeSequenceWait: 1
+  crashAudio: {fileID: 8300000, guid: a70e35359c246034ea6e992209eee098, type: 3}
+  finishAudio: {fileID: 8300000, guid: dd97f881959c30842a434a31d76613a4, type: 3}

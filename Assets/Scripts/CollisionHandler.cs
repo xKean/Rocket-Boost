@@ -4,44 +4,51 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     
-    [SerializeField] float changeSequenceWait = 0.6f;
+    [SerializeField] float changeSequenceWait = 1f;
     [SerializeField] AudioClip crashAudio;
     [SerializeField] AudioClip finishAudio;
     Movement movementScript;
     AudioSource audioSource;
+    bool isTransitioning = false;
     private void Start() {
         movementScript = GetComponent<Movement>();
         audioSource = GetComponent<AudioSource>();
     }
     void OnCollisionEnter(Collision other) 
     {
-        switch(other.gameObject.tag)
-        {
-            case "Friendly":
-                Debug.Log(other.gameObject.tag);
-                break;
-            case "Finish":
-                StartFinishSequence();
-                break;
-            default:
-                StartCrashSequence();
-                break;
+        if(!isTransitioning){
+            switch(other.gameObject.tag)
+            {
+                case "Friendly":
+                    Debug.Log(other.gameObject.tag);
+                    break;
+                case "Finish":
+                    StartFinishSequence();
+                    break;
+                default:
+                    StartCrashSequence();
+                    break;
+            }
         }
     }
 
     void StartCrashSequence()
     {
         //todo add particle effect upon crash
-        audioSource.PlayOneShot(crashAudio);
-        movementScript.enabled = false ; 
-        Invoke("ReloadLevel", changeSequenceWait);
+            isTransitioning = true ;
+            audioSource.Stop();
+            audioSource.PlayOneShot(crashAudio);
+            movementScript.enabled = false ; 
+            Invoke("ReloadLevel", changeSequenceWait);        
     }
     void StartFinishSequence()
     {
-        //todo add particle effect upon crash
-        audioSource.PlayOneShot(finishAudio);
-        movementScript.enabled = false ; 
-        Invoke("LoadNextLevel", changeSequenceWait);
+        //todo add particle effect upon success
+            isTransitioning = true;
+            audioSource.Stop();
+            audioSource.PlayOneShot(finishAudio);
+            movementScript.enabled = false ; 
+            Invoke("LoadNextLevel", changeSequenceWait);
     }
 
 
