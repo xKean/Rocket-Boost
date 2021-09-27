@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] float boostPower = 1000f;
-    [SerializeField] float turnPower = 250f;
+    [SerializeField] float turnPower = 255f;
 
     // Start is called before the first frame update
     void Start()
